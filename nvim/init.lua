@@ -162,6 +162,13 @@ rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  {
+    'tpope/vim-fugitive',
+    config = function()
+      -- Optional configuration can go here
+      vim.api.nvim_set_keymap('n', '<leader>gs', ':Gstatus<CR>', { noremap = true, silent = true })
+    end,
+  },
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
