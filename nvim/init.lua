@@ -90,6 +90,8 @@ vim.keymap.set('n', '<leader>pv', '<cmd>Ex<CR>')
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+vim.keymap.set('n', 'K', vim.lsp.buf.hover)
+
 -- Diagnostic keymaps
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -168,6 +170,11 @@ require('lazy').setup({
       -- Optional configuration can go here
       vim.api.nvim_set_keymap('n', '<leader>gs', ':Gstatus<CR>', { noremap = true, silent = true })
     end,
+  },
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
   },
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
@@ -905,5 +912,25 @@ require('catppuccin').setup {
 }
 
 vim.cmd 'colorscheme catppuccin'
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+
+local harpoon = require 'harpoon'
+harpoon:setup { settings = { save_on_toggle = true, sync_on_close_ui = true } }
+
+vim.keymap.set('n', '<leader>hi', function()
+  harpoon:list():add()
+end)
+vim.keymap.set('n', '<leader>ho', function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+vim.keymap.set('n', '<leader>ha', function()
+  harpoon:list():select(1)
+end)
+vim.keymap.set('n', '<leader>hs', function()
+  harpoon:list():select(2)
+end)
+vim.keymap.set('n', '<leader>hd', function()
+  harpoon:list():select(3)
+end)
+vim.keymap.set('n', '<leader>hf', function()
+  harpoon:list():select(4)
+end)
